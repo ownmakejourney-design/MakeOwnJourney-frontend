@@ -19,6 +19,5 @@ export default function FlightsPage() {
     <OffersSection />
     <FlightFAQ />
     <About />
-
   </>;
 }

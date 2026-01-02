@@ -17,7 +17,7 @@ const faqs = [
 
 export default function FlightFAQ() {
   return (
-    <section className="mb-16">
+    <section className="mb-16 mt-6">
       <h3 className="text-xl font-semibold mb-4">
         Frequently Asked Questions
       </h3>

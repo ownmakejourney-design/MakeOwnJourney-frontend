@@ -8,7 +8,7 @@ export default function FlightFilters() {
   const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <aside className=" border border-border shadow shadow-card rounded-lg p-4 space-y-6  md:w-72">
+    <aside className=" border border-border  shadow shadow-card rounded-lg p-4 space-y-6  md:w-72">
       
       {/* Popular Filters */}
       <div className="space-y-3">
