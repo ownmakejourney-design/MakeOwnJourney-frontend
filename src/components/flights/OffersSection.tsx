@@ -69,27 +69,25 @@ export default function OffersSection() {
   ];
 
   return (
-    <section className="w-full bg-background  md:px-16">
+    <section className="w-full bg-background px-4 py-8 md:px-8 lg:px-16">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-text">
-          Offers
-        </h2>
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-text">Offers</h2>
         <button className="text-primary font-semibold hover:underline">
           VIEW ALL →
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="mb-8 flex flex-wrap gap-6 border-b border-border">
+      <div className="mb-10 flex flex-wrap gap-6 border-b border-border pb-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`pb-2 text-sm font-medium transition-all ${
+            className={`pb-3 px-1 text-sm sm:text-base font-medium transition-all duration-200 border-b-2 ${
               activeTab === tab
-                ? "border-b-2 border-primary text-primary"
-                : "text-text-secondary hover:text-primary"
+                ? "border-primary text-primary"
+                : "border-transparent text-text-secondary hover:text-primary hover:border-primary/50"
             }`}
           >
             {tab}
@@ -97,40 +95,52 @@ export default function OffersSection() {
         ))}
       </div>
 
-      {/* Offer Cards */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {offers.map((offer) => (
           <div
             key={offer.id}
-            className="flex flex-col justify-between rounded-2xl border border-border  p-4  transition hover:bg-hover-card"
+            className="group relative overflow-hidden rounded-2xl border border-border bg-hover-card 
+                       transition-all duration-500 ease-out 
+                       hover:shadow-2xl hover:-translate-y-3 
+                       flex flex-col h-full"
           >
-            <div className="flex items-start gap-4">
-              <div className="relative h-24 w-24 flex-shrink-0">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  fill
-                  className="rounded-lg object-cover"
-                />
+            {/* Entire card content scales together on hover */}
+            <div className="transform transition-transform duration-500 group-hover:scale-105 flex flex-col h-full">
+              
+              <div className="relative overflow-hidden rounded-t-2xl mx-2 mt-4">
+                <div className="aspect-video relative"> 
+                  <Image
+                    src={offer.image}
+                    alt={offer.title}
+                    fill
+                    className="object-cover rounded-lg"
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, (max-width: 1280px) 30vw, 22vw"
+                    priority={offer.id <= 3}
+                  />
+                </div>
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold text-text">
-                  {offer.title}
-                </h3>
-                <p className="mt-1 text-sm text-text-secondary">
-                  {offer.subtitle}
-                </p>
-              </div>
-            </div>
+             
+              <div className="p-5 pb-6 flex flex-col flex-grow justify-between mx-4 mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-text line-clamp-2">
+                    {offer.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-text-secondary line-clamp-2">
+                    {offer.subtitle}
+                  </p>
+                </div>
 
-            <div className="mt-3 flex justify-end">
-              <a
-                href={offer.link}
-                className="text-sm font-semibold text-primary hover:underline"
-              >
-                BOOK NOW
-              </a>
+                <div className="mt-6 flex justify-end">
+                  <a
+                    href={offer.link}
+                    className="text-sm font-semibold text-primary hover:underline transition-colors"
+                  >
+                    BOOK NOW 
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         ))}

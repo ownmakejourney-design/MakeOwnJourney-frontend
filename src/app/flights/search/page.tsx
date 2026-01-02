@@ -16,7 +16,7 @@ export default function FlightSearchPage() {
 
       <div className="md:col-span-3 space-y-4">
         {flights.length === 0 && (
-          <p className="text-text-secondary">No flights found</p>
+          <p className="text-text-secondary  ml-9">No flights found</p>
         )}
 
         {flights.map((flight) => (
