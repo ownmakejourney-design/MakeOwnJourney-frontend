@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import type { AppDispatch } from "@/redux/store";
 import { searchFlights } from "@/redux/slices/flightSlice";
 import FromInput from "./FromInput";
+
+const today = new Date().toISOString().split("T")[0];
 
 const FlightSearch = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,11 +16,18 @@ const FlightSearch = () => {
   const [searchFlight, setSearchFlight] = useState({
     from: "",
     to: "",
-    departureDate: "",
+    departureDate: today,
     returnDate: "",
     passengers: 1,
-    tripType: "oneway",
+    tripType: "oneway" as "oneway" | "roundtrip",
   });
+
+  // one-way → return clear
+  useEffect(() => {
+    if (searchFlight.tripType === "oneway") {
+      setSearchFlight((prev) => ({ ...prev, returnDate: "" }));
+    }
+  }, [searchFlight.tripType]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -27,13 +36,33 @@ const FlightSearch = () => {
     setSearchFlight((prev) => ({ ...prev, [name]: value }));
   };
 
+  // return click → auto roundtrip
+  const handleReturnFocus = () => {
+    if (searchFlight.tripType === "oneway") {
+      setSearchFlight((prev) => ({ ...prev, tripType: "roundtrip" }));
+    }
+  };
+
+  // passengers + -
+  const increasePassengers = () => {
+    setSearchFlight((prev) => ({
+      ...prev,
+      passengers: Math.min(prev.passengers + 1, 6),
+    }));
+  };
+
+  const decreasePassengers = () => {
+    setSearchFlight((prev) => ({
+      ...prev,
+      passengers: Math.max(prev.passengers - 1, 1),
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 🔥 REDUX API CALL
     dispatch(searchFlights(searchFlight));
 
-    // 🔥 NAVIGATE
     const params = new URLSearchParams({
       from: searchFlight.from,
       to: searchFlight.to,
@@ -42,25 +71,21 @@ const FlightSearch = () => {
       passengers: String(searchFlight.passengers),
     });
 
-    if (searchFlight.returnDate && searchFlight.tripType !== "oneway") {
+    if (searchFlight.tripType === "roundtrip" && searchFlight.returnDate) {
       params.append("returnDate", searchFlight.returnDate);
     }
 
     router.push(`/flights/search?${params.toString()}`);
   };
 
-
   return (
-    <div className="my-10  md:mx-8 lg:mx-12 p-2 md:p-8 rounded-xl shadow-card text-text">
+    <div className="my-10 md:mx-8 lg:mx-12 p-2 md:p-8 rounded-xl shadow-card text-text">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
         {/* Trip Type */}
-        <div className="flex flex-wrap gap-4">
-          {["oneway", "roundtrip", "multicity"].map((type) => (
-            <label
-              key={type}
-              className="flex items-center gap-2 cursor-pointer"
-            >
+        <div className="flex gap-6">
+          {["oneway", "roundtrip"].map((type) => (
+            <label key={type} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="tripType"
@@ -69,25 +94,14 @@ const FlightSearch = () => {
                 onChange={handleChange}
                 className="accent-primary"
               />
-              <span className="capitalize">
-                {type === "oneway"
-                  ? "One Way"
-                  : type === "roundtrip"
-                  ? "Round Trip"
-                  : "Multi City"}
-              </span>
+              <span>{type === "oneway" ? "One Way" : "Round Trip"}</span>
             </label>
           ))}
         </div>
 
-        {/* Search Inputs */}
-        <div className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-5
-          gap-4
-        ">
+        {/* Inputs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+
           {/* FROM */}
           <FromInput
             value={searchFlight.from}
@@ -96,8 +110,9 @@ const FlightSearch = () => {
             }
           />
 
-          {/* TO */}
-          <div className="bg-background border border-border px-4 py-3 rounded-md">
+          {/* TO (UNCHANGED) */}
+          <div className="bg-background border border-border px-4 py-3 rounded-md
+                          hover:border-primary hover:shadow-md transition">
             <label className="text-text-secondary text-sm">Going to</label>
             <input
               type="text"
@@ -110,48 +125,71 @@ const FlightSearch = () => {
           </div>
 
           {/* DEPARTURE */}
-          <div className="bg-background border border-border px-4 py-3 rounded-md">
+          <div className="bg-background border border-border px-4 py-3 rounded-md
+                          hover:border-primary hover:shadow-md transition">
             <label className="text-text-secondary text-sm">Departure</label>
             <input
               type="date"
               name="departureDate"
+              min={today}
               value={searchFlight.departureDate}
               onChange={handleChange}
-              className="mt-2 w-full outline-none bg-transparent"
+              className="mt-2 w-full outline-none bg-transparent cursor-pointer"
             />
           </div>
 
           {/* RETURN */}
-          <div className="bg-background border border-border px-4 py-3 rounded-md">
+          <div className="bg-background border border-border px-4 py-3 rounded-md
+                          hover:border-primary hover:shadow-md transition">
             <label className="text-text-secondary text-sm">Return</label>
-            <input
-              type="date"
-              name="returnDate"
-              value={searchFlight.returnDate}
-              onChange={handleChange}
-              className="mt-2 w-full outline-none bg-transparent"
-            />
+
+            {searchFlight.tripType === "oneway" ? (
+              <p
+                onClick={handleReturnFocus}
+                className="mt-2 text-sm text-gray-400 cursor-pointer"
+              >
+                Add return date
+              </p>
+            ) : (
+              <input
+                type="date"
+                name="returnDate"
+                min={searchFlight.departureDate}
+                value={searchFlight.returnDate}
+                onFocus={handleReturnFocus}
+                onChange={handleChange}
+                className="mt-2 w-full outline-none bg-transparent cursor-pointer"
+              />
+            )}
           </div>
 
           {/* PASSENGERS */}
-          <div className="bg-background border border-border px-4 py-3 rounded-md">
+          <div className="bg-background border border-border px-4 py-3 rounded-md
+                          hover:border-primary hover:shadow-md transition">
             <label className="text-text-secondary text-sm">Passengers</label>
-            <select
-              name="passengers"
-              value={searchFlight.passengers}
-              onChange={handleChange}
-              className="mt-2 w-full outline-none bg-transparent"
-            >
-              {[1, 2, 3, 4, 5, 6].map((p) => (
-                <option key={p} value={p}>
-                  {p} Passenger{p > 1 && "s"}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center justify-between mt-2">
+              <button
+                type="button"
+                onClick={decreasePassengers}
+                className="px-3 py-1 border rounded-md"
+              >
+                −
+              </button>
+              <span className="text-lg font-semibold">
+                {searchFlight.passengers}
+              </span>
+              <button
+                type="button"
+                onClick={increasePassengers}
+                className="px-3 py-1 border rounded-md"
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* SEARCH BUTTON */}
+        {/* SEARCH */}
         <div className="flex justify-center">
           <button
             type="submit"
@@ -161,13 +199,6 @@ const FlightSearch = () => {
           </button>
         </div>
       </form>
-
-      {/* Preview */}
-      <p className="text-text-secondary text-center mt-4">
-        {searchFlight.from && searchFlight.to
-          ? `${searchFlight.from} → ${searchFlight.to}`
-          : ""}
-      </p>
     </div>
   );
 };

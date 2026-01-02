@@ -21,7 +21,7 @@ export default function FlightResults({
   onBook: (flight: Flight) => void;
 }) {
   if (!flights.length) {
-    return <p>No flights found.</p>;
+    return <p>No flights found</p>;
   }
 
   return (

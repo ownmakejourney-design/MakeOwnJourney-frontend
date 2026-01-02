@@ -11,12 +11,12 @@ export default function FlightSearchPage() {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-2 p-6">
+    <div className=" grid grid-cols-1 md:grid-cols-4 gap-2 p-6">
       <FlightFilters />
 
       <div className="md:col-span-3 space-y-4">
         {flights.length === 0 && (
-          <p className="text-text-secondary">No flights found</p>
+          <p className="text-text-secondary  ml-9">No flights found</p>
         )}
 
         {flights.map((flight) => (
