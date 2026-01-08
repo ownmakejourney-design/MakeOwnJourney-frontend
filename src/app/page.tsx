@@ -1,9 +1,11 @@
-import Image from "next/image";
+import HeroSection from "@/components/home/HeroSection";
+import Offer from "@/components/home/Offer";
 
 export default function Home() {
   return (
-    <main>
-      <h1>Welcome to MakeOwnJourney</h1>
+    <main >
+    <HeroSection />
+    <Offer />
     </main>
   );
 }
