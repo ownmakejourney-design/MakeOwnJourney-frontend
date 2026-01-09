@@ -40,7 +40,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <main className="mt-150">
+          <main className="mt-[150px]">
             {children}
           </main>
           <Footer />

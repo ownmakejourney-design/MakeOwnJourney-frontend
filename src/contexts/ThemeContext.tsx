@@ -1,37 +1,44 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { lightColors } from "@/theme/colors";
 
+type Theme = "light";
+
 type ThemeContextType = {
-  theme: "light";
+  theme: Theme;
+  toggleTheme: () => void;
 };
 
-const ThemeContext = createContext<ThemeContextType>({
-  theme: "light",
-});
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export default function ThemeProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    const root = document.documentElement;
+  const [theme] = useState<Theme>("light");
 
-    // Set CSS variables from light theme
+  const toggleTheme = () => {
+    // future: dark mode
+  };
+
+  useEffect(() => {
     Object.entries(lightColors).forEach(([key, value]) => {
-      // camelCase → kebab-case
       const cssVar = `--${key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}`;
-      root.style.setProperty(cssVar, value);
+      document.documentElement.style.setProperty(cssVar, value);
     });
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme: "light" }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
-export const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be used inside ThemeProvider");
+  return ctx;
+};
