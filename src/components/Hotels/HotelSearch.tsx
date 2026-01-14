@@ -176,7 +176,7 @@ const HotelSearch = () => {
         {/* SEARCH */}
         <button
           type="submit"
-          className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold"
+          className="bg-gradient-to-r from-orange-500 to-gray-800 text-white  px-8 py-4 rounded-full text-lg font-semibold"
         >
           SEARCH
         </button>

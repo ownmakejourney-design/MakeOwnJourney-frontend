@@ -178,7 +178,7 @@ const CabSearch = () => {
         <div>
           <button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-3 rounded-full font-semibold transition"
+            className="bg-gradient-to-r from-orange-500 to-gray-800 text-white px-10 py-3 rounded-full font-semibold transition"
           >
             SEARCH CABS
           </button>

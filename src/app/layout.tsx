@@ -4,6 +4,7 @@ import Providers from "./providers";
 import "./global.css";
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
+import FaqBot from "@/components/FaqBot";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,6 +44,8 @@ export default function RootLayout({
           <main className="mt-[150px]">
             {children}
           </main>
+          <FaqBot />
+          
           <Footer />
         </Providers>
       </body>
