@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import About from "@/components/flights/About";
 import HotelCard from "@/components/hotels/HotelsCards";
 import HotelSearch from "@/components/hotels/HotelSearch";

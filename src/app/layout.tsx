@@ -41,7 +41,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <main className="mt-[150px]">
+          <main className="mt-[0px]">
             {children}
           </main>
           <FaqBot />

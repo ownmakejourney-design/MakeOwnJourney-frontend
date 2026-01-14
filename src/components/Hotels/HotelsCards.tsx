@@ -4,9 +4,9 @@ type Hotel = {
   id: string;
   name: string;
   location: string;
-  rating: number;        // e.g. 4.2
-  reviews: number;       // e.g. 320
-  pricePerNight: number; // e.g. 3499
+  rating: number;        
+  reviews: number;       
+  pricePerNight: number;
   image?: string;
 };
 
