@@ -1,7 +1,9 @@
 "use client";
 import HeroSection from "@/components/home/HeroSection";
 import Offer from "@/components/home/Offer";
+import GoogleReviewCard from "@/components/package/GoogleReviewCard";
 import PackageCard from "@/components/package/Package";
+import { googleReviews } from "@/data/googleReviews";
 import { packages } from "@/data/package";
 
 export default function Home() {
@@ -20,6 +22,21 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+       <section className="max-w-screen mx-auto px-4 py-16">
+            <h2 className="text-4xl font-bold text-center mb-10">
+              What Our Customers Say
+            </h2>
+      
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-10">
+              {googleReviews.map((review) => (
+                <GoogleReviewCard
+                  key={review.id}
+                  review={review}
+                />
+              ))}
+            </div>
+          </section>
     </main>
   );
 }

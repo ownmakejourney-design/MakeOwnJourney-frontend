@@ -1,9 +1,9 @@
 "use client";
 
 import About from "@/components/flights/About";
-import HotelCard from "@/components/hotels/HotelsCards";
-import HotelSearch from "@/components/hotels/HotelSearch";
-import HotelsOffers from "@/components/hotels/HotelsOffers";
+import HotelCard from "@/components/Hotels/HotelsCards";
+import HotelSearch from "@/components/Hotels/HotelSearch";
+import HotelsOffers from "@/components/Hotels/HotelsOffers";
 import { useEffect, useState } from "react";
 
 export default function FlightsPage() {
