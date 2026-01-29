@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
     { href: "/cabs", icon: <Image src={CarIcon} alt="Cabs" width={32} height={32} />, label: "Cabs" },
     { href: "/visa", icon: <Image src={VisaIcon} alt="Visa" width={32} height={32} />, label: "Visa" },
     { href: "/travel-insurance", icon: <Image src={InsuranceIcon} alt="Insurance" width={32} height={32} />, label: "Insurance" },
-    { href: "/holidays-india", icon: <Image src={PackagesIcon} alt="Packages" width={32} height={32} />, label: "Packages" },
+    { href: "/package", icon: <Image src={PackagesIcon} alt="Packages" width={32} height={32} />, label: "Packages" },
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);

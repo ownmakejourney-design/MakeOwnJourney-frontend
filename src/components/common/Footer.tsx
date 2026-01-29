@@ -6,8 +6,8 @@ export default function Footer() {
   return (
     <footer className="bg-container border-t border-border shadow-card">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="max-w-screen mx-auto px-4  sm:px-6 py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-10">
 
           {/* Brand */}
           <div>
@@ -85,7 +85,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-sm text-text-secondary">
               <li>Email: support@makeownjourney.com</li>
-              <li>Phone: +91 98XXXXXX12</li>
+              <li>Phone: +91 8750610304</li>
               <li>Location: India</li>
             </ul>
           </div>
