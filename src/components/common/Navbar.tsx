@@ -36,11 +36,11 @@ const Navbar: React.FC = () => {
     <>
       <nav className="bg-white/95 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-18">
+          <div className="flex justify-around items-center py-2 gap-10">
 
             {/* LOGO + BRAND TEXT */}
             <Link href="/" className="flex items-center gap-3">
-              <Image src="/logo2.png" alt="Logo" width={44} height={54} />
+              <Image src="/logo2.png" alt="Logo" width={54} height={54} />
 
               {/* DESKTOP */}
               <span className="hidden sm:block text-xl font-bold tracking-wide">
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
             </Link>
 
             {/* DESKTOP MENU */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6">
               {menuItems.map((item) => (
                 <Link
                   key={item.href}
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
             {/* RIGHT */}
             <div className="flex items-center gap-4">
               <Link href="/auth/login">
-                <button className="hidden sm:block bg-primary text-white px-6 py-2 rounded-full">
+                <button className="hidden sm:block border border-primary text-primary px-6 py-2 rounded-2xl hover:bg-primary hover:text-white transition text-md font-medium">
                   Login / Sign Up
                 </button>
               </Link>
