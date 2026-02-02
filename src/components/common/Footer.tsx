@@ -71,7 +71,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-primary transition">
+                <Link href="/terms-conditions" className="hover:text-primary transition">
                   Terms & Conditions
                 </Link>
               </li>

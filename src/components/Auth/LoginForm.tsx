@@ -1,38 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
 import api from "@/server/api";
-import { FcGoogle } from "react-icons/fc";
+import {FcGoogle} from "react-icons/fc";
 import Link from "next/link";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function LoginForm() {
   const router = useRouter();
-
   const [mode, setMode] = useState<"email" | "phone" | "otp">("email");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
 
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
 
   // 🔐 Email Login
   const handleEmailLogin = async () => {
-    const res = await api.post("/auth/login", { email, password });
+    const res = await api.post("/auth/login", {email, password});
     localStorage.setItem("accessToken", res.data.token);
     router.push("/");
   };
 
   // 📲 Send OTP
   const handleSendOtp = async () => {
-    await api.post("/auth/send-otp", { phone });
+    await api.post("/auth/send-otp", {phone});
     setMode("otp");
   };
 
   // ✅ Verify OTP
   const handleVerifyOtp = async () => {
-    const res = await api.post("/auth/verify-otp", { phone, otp });
+    const res = await api.post("/auth/verify-otp", {phone, otp});
     localStorage.setItem("accessToken", res.data.token);
     router.push("/");
   };
@@ -53,18 +53,31 @@ export default function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 className="w-full mt-1 px-3 py-2 rounded-md outline-none border border-gray-700 hover:border-blue-500 transition"
+                autoFocus
               />
             </div>
 
-            <div>
+            <div className="w-full relative">
               <label className="text-sm">Password</label>
+
               <input
-                type="password"
+                type={show ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="........."
-                className="w-full mt-1 px-3 py-2 rounded-md outline-none border border-gray-700 hover:border-blue-500 transition"
+                placeholder="••••••••"
+                className="w-full mt-1 px-3 py-2 pr-10 rounded-md outline-none border border-gray-700 hover:border-blue-500 transition focus:border-blue-500"
               />
+
+              <span
+                onClick={() => setShow(!show)}
+                className="absolute right-3 top-[38px] cursor-pointer text-gray-500 hover:text-blue-500"
+              >
+                {show ? (
+                  <AiFillEyeInvisible size={20} />
+                ) : (
+                  <AiFillEye size={20} />
+                )}
+              </span>
             </div>
 
             <button
@@ -94,6 +107,7 @@ export default function LoginForm() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="9198xxxxxxx"
                 className="w-full mt-1 px-3 py-2 rounded-md outline-none border border-gray-700 hover:border-blue-500 transition"
+                autoFocus
               />
             </div>
 
@@ -149,10 +163,7 @@ export default function LoginForm() {
 
         <p className="text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link
-            href="/auth/signup"
-            className="text-blue-600 hover:underline"
-          >
+          <Link href="/auth/signup" className="text-blue-600 hover:underline">
             Sign up
           </Link>
         </p>
