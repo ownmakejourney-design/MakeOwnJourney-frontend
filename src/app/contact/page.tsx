@@ -35,33 +35,35 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100"> 
-      <div className="h-64 md:h-80 bg-black flex items-center justify-center text-white">
+      <div className="h-64 md:h-80 bg-gradient-to-t from-gray-800 to-red-800 hover:black flex items-center justify-center text-white">
         <h1 className="text-4xl md:text-5xl font-bold">Contact Us</h1>
       </div>
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-lg overflow-hidden shadow-lg">
   
           <div
             className="relative bg-cover bg-center p-8 text-white"
             style={{backgroundImage: "url('/contactus.jpg')"}}
           >
-            <div className="absolute inset-0 bg-black/60"></div>
+            <div className="absolute inset-0 bg-black/40"></div>
             <div className="relative z-10">
               <h2 className="text-3xl font-semibold mb-4">Get in Touch</h2>
               <p className="mb-6">
-                We’re here to help you connect, ask questions, and build
-                meaningful journeys together with trusted support.
+               We’re here to help you connect, ask questions, and build meaningful journeys together with trusted support. At MakeOwnJourney, your travel experience matters to us, and our dedicated team is always ready to assist you at every step of your journey..
+              </p>
+              <p className="mb-6">
+                We also welcome your feedback, suggestions, and ideas. Your input helps us improve our services and create better travel experiences for our customers. If you’ve faced any issues or need help resolving a concern, our team will work promptly to ensure your satisfaction.
               </p>
 
-              <ul className="space-y-4">
-                <li>
-                  <strong>Email:</strong> support@yourwebsite.com
+              <ul className="space-y-4 mt-4">
+                <li className="border p-4 rounded-md bg-black/30">
+                  <strong>Email: </strong> support@makeownjourney.com
                 </li>
-                <li>
-                  <strong>Phone:</strong> +91 98765 43210
+                <li className="border p-4 rounded-md bg-black/40 ">
+                  <strong>Phone:</strong> +91 87500 14186
                 </li>
-                <li>
-                  <strong>Address:</strong> Your City, India
+                <li className="border p-4 rounded-md bg-black/40">
+                  <strong>Address:</strong> Patna, Bihar
                 </li>
               </ul>
             </div>
@@ -143,7 +145,6 @@ const ContactPage = () => {
                   required
                 />
               </div>
-
               <button
                 type="submit"
                 className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
