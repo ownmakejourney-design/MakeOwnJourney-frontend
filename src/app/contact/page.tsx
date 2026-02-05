@@ -118,7 +118,7 @@ const ContactPage = () => {
                 <select
                   name="subject"
                   value={contactForm.subject}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   className="w-full border rounded-md p-2"
                   required
                 >
