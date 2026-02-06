@@ -38,8 +38,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-no-repeat bg-cover text-black">
-      <div className="w-[400px] rounded-md shadow-md py-6 px-6 shadow-gray-950 flex flex-col gap-4 bg-white">
+    <div className=" flex items-center justify-center  text-black">
+      <div className="w-[400px] rounded-md shadow-md py-6 px-6 shadow-gray-950 flex flex-col gap-4 bg-white/60">
         <h1 className="text-3xl font-semibold text-center">Login</h1>
 
         {/* 🔹 EMAIL LOGIN */}
